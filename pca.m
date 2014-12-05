@@ -13,5 +13,5 @@ selFaces = sortM(eigenFaces, eigenValues, "descend", 10);
 % Calculando pesos dos autofaces
 trainWeigths = selFaces'*normImages;
 
-%'
+%' Testa com images de treinamento
 test(selFaces, trainWeigths, meanFace);
