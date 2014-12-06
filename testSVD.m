@@ -1,11 +1,16 @@
-function test(eigenFaces, trainWeights, meanFace)
+function testSVD(U, trainWeights, meanFace)
 	[testImages, testNorm] = readTest(15, 5, 5, meanFace);	
 	[rows, cols] = size(testNorm);
-	
-	testWeights = eigenFaces'*testNorm;	
-	%'		
-	[rows, cols] = size(testWeights);		
-	
+
+	testWeights = [];
+	for(i=1:cols)
+		image = double(testNorm(:, i));
+		temp = U' * image;
+		%'
+		testWeights = [testWeights temp];
+	endfor
+			
+	[rows, cols] = size(testWeights);			
 	cont = 1;
 	similar = [];
 	for(i=1:cols)		
@@ -18,7 +23,7 @@ function test(eigenFaces, trainWeights, meanFace)
 			distance = [distance dist];
 		endfor
 
-		[distMin, indexMin] = min(distance);		
+		[distMin, indexMin] = min(distance);
 		similar = [similar indexMin];
 	endfor
 	

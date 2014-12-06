@@ -1,13 +1,13 @@
 % Ler vetoriza e normaliza imagens
-function [images, meanFace, normImages] = readImages(nfig, nvar)
+function [images, meanFace, normImages] = readImages(nfig, nvarI, nvarF)
 	path = "BASE_Faces/BASE/";
 	cont = 1;
 	for(i=1:nfig)
-	    for(j=1:nvar)
+	    for(j=nvarI:nvarF)
 	        file = strcat( strcat( strcat( strcat( path, int2str(i) ), "." ),  int2str(j)), ".bmp");
 	        I  = imread(file);
 	        [rows, cols] = size(I);	        
-	        images(:, cont++) = double(reshape(I, [1, (rows*cols)] ));	        	        
+	        images(:, cont++) = double(reshape(I, [1, (rows*cols)] ));	        	        	        
 	    endfor
 	endfor
 

@@ -1,5 +1,5 @@
 % Ler imagens
-[images, meanFace, normImages] = readImages(15, 5);
+[images, meanFace, normImages] = readImages(15, 1, 4);
 
 % Calcula Matriz de covariância
 matCov = normImages'*normImages;
@@ -8,10 +8,11 @@ matCov = normImages'*normImages;
 [eigenFaces, eigenVects, eigenValues] = eigenFaces(matCov, normImages); 
 
 % Selecionar autofaces
-selFaces = sortM(eigenFaces, eigenValues, "descend", 10);
+selFaces = sortM(eigenFaces, eigenValues, "descend", 18, 4);
 
 % Calculando pesos dos autofaces
-trainWeigths = selFaces'*normImages;
+imgTestNorm = imagesForWeight(normImages, 4);
+trainWeigths = selFaces'*imgTestNorm;
 
-%' Testa com images de treinamento
+%' Testa com images de teste
 test(selFaces, trainWeigths, meanFace);
