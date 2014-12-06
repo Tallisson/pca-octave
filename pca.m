@@ -8,7 +8,7 @@ matCov = normImages'*normImages;
 [eigenFaces, eigenVects, eigenValues] = eigenFaces(matCov, normImages); 
 
 % Selecionar autofaces
-selFaces = sortM(eigenFaces, eigenValues, "descend", 18, 4);
+selFaces = sortM(eigenFaces, eigenValues, "descend", 44, 4);
 
 % Calculando pesos dos autofaces
 imgTestNorm = imagesForWeight(normImages, 4);
