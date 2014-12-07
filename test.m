@@ -1,5 +1,5 @@
-function test(eigenFaces, trainWeights, meanFace)
-	[testImages, testNorm] = readTest(15, 5, 5, meanFace);	
+function test(eigenFaces, trainWeights, meanFace, testIndex)
+	[testImages, testNorm] = readTest(15, testIndex, testIndex, meanFace);	
 	[rows, cols] = size(testNorm);
 	
 	testWeights = eigenFaces'*testNorm;	

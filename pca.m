@@ -1,18 +1,26 @@
-% Ler imagens
-[images, meanFace, normImages] = readImages(15, 1, 4);
+function pca(nfig, vector, nSelFaces, trainIndex = -1, testIndex)
+	% Ler imagens
+	[images, meanFace, normImages] = readImagesV(nfig, vector);
 
-% Calcula Matriz de covariância
-matCov = normImages'*normImages;
+	% Calcula Matriz de covariância
+	matCov = normImages'*normImages;
 
-%' Calculando autofaces
-[eigenFaces, eigenVects, eigenValues] = eigenFaces(matCov, normImages); 
+	%' Calculando autofaces
+	[eigenFaces, eigenVects, eigenValues] = eigenFaces(matCov, normImages); 
 
-% Selecionar autofaces
-selFaces = sortM(eigenFaces, eigenValues, "descend", 44, 4);
+	% Selecionar autofaces
+	selFaces = sortM(eigenFaces, eigenValues, "descend", nSelFaces, trainIndex);
 
-% Calculando pesos dos autofaces
-imgTestNorm = imagesForWeight(normImages, 4);
-trainWeigths = selFaces'*imgTestNorm;
+	% Calculando pesos dos autofaces
+	if(trainIndex != -1)
+		imgTestNorm = imagesForWeight(normImages, trainIndex);
+	else
+		imgTestNorm = normImages;
+	endif
+	trainWeigths = selFaces'*imgTestNorm;
+	
+	%' Testa com images de teste
+	test(selFaces, trainWeigths, meanFace, testIndex);
+endfunction
 
-%' Testa com images de teste
-test(selFaces, trainWeigths, meanFace);
+pca(15, [1, 2, 3, 4], 15, 4, 5);
