@@ -17,10 +17,10 @@ function [result, eigenVect, eigenVal] = eigenFaces(matCov, normImages)
 	[r, c] = size(normImages);
 
 	cont = 1;
-	for(i=1:cols)	
+	for(i=1:rows)	
 		sum = zeros(r, 1);		
-		for(j=1:rows)
-			sum = sum + (eigenVect(j, i) * normImages(:, i));					
+		for(j=1:cols)
+			sum = sum + (eigenVect(i, j) * normImages(:, i));					
 		endfor
 		result(:, cont++) = sum;
 	endfor

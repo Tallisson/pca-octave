@@ -5,7 +5,7 @@ function test(eigenFaces, trainWeights, meanFace, testIndex)
 	testWeights = eigenFaces'*testNorm;	
 	%'		
 	[rows, cols] = size(testWeights);		
-	disp(size(testWeights));
+	
 	cont = 1;
 	similar = [];
 	for(i=1:cols)		
@@ -18,7 +18,7 @@ function test(eigenFaces, trainWeights, meanFace, testIndex)
 			distance = [distance dist];
 		endfor
 
-		[distMin, indexMin] = min(distance);		
+		[distMin, indexMin] = min(distance);				
 		similar = [similar indexMin];
 	endfor
 	

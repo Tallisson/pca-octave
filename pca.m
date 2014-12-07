@@ -21,8 +21,6 @@ function pca(nfig, vector, nSelFaces, trainIndex = -1, testIndex)
 	endif	
 	trainWeigths = selFaces'*imgTestNorm;
 	
-	disp(size(trainWeigths));
-	
 	%' Testa com images de teste
 	test(selFaces, trainWeigths, meanFace, testIndex);
 endfunction
