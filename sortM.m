@@ -7,31 +7,34 @@ function matrixReturn = sortM(eigenFaces, eigenValues, mode, quantity = -1, inde
 	matrixReturn = [];
 	[minV indexMin] = min(eigenValues);
 
+	if(index != -1)
+		i = index;
+		values = [];
+		while(i <= 60)
+			values = [values i];
+			i += 4;
+		endwhile	
+		[r, c] = size(values);
 
-	i = index;
-	values = [];
-	while(i <= 60)
-		values = [values i];
-		i += 4;
-	endwhile	
-	[r, c] = size(values);
-
-	selectValues = [];		
-	cont = 1;
-	for(i=1:cols)			
-		value = values(cont);
-		if(index == -1 || (i != value && i != indexMin))			
-			selectValues = [selectValues eigenValues(:, i)];									
-		else
-			if(i == value)
-				if(cont < c)				
-					cont++;
+		selectValues = [];		
+		cont = 1;
+		for(i=1:cols)			
+			value = values(cont);
+			if(index == -1 || (i != value && i != indexMin))			
+				selectValues = [selectValues eigenValues(:, i)];									
+			else
+				if(i == value)
+					if(cont < c)				
+						cont++;
+					endif
 				endif
 			endif
-		endif
-	endfor	
+		endfor	
+		sortValues = sort(selectValues, mode);	
+	else
+		sortValues = sort(eigenValues, mode);
+	endif	
 	
-	sortValues = sort(selectValues, mode);		
 	for(i=1:cols)
 		value = eigenValues(i);
 		for(j=1:quantity)
@@ -41,6 +44,6 @@ function matrixReturn = sortM(eigenFaces, eigenValues, mode, quantity = -1, inde
 				break;
 			endif
 		endfor	
-	endfor	
+	endfor		
 	
 endfunction
